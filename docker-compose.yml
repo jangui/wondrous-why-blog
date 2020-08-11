@@ -60,8 +60,17 @@ services:
   web:
     build: web
     restart: always
+    stdin_open: true
     networks:
       - traefik-proxy
+    volumes:
+      - "./web:/app"
+      - "/app/node_modules"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=9000
+      - CHOKIDAR_USEPOLLING=true
+      - CI=true
     labels:
         #enable traefik auto discovery
       - "traefik.enable=true"
