@@ -1,6 +1,6 @@
 import { withStyles } from '@material-ui/core';
 import React, { Component } from 'react';
-import BlogPost from './BlogPost';
+import BlogPostFeed from './BlogPostFeed';
 
 const styles = theme => ({
   feed: {
@@ -18,17 +18,13 @@ class BlogFeed extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.feed}>
-        <BlogPost />
-        <BlogPost />
-        <BlogPost />
-        <BlogPost />
-        <BlogPost />
-        <BlogPost />
-        <BlogPost />
-        <BlogPost />
-        <BlogPost />
-        <BlogPost />
-        <BlogPost />
+        <BlogPostFeed />
+        <BlogPostFeed />
+        <BlogPostFeed />
+        <BlogPostFeed />
+        <BlogPostFeed />
+        <BlogPostFeed />
+        <BlogPostFeed />
       </div>
     );
   }

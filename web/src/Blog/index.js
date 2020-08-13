@@ -1,3 +1,4 @@
 import Blog from './Blog'
+import BlogPost from './BlogPost'
 
-export default Blog;
+export default BlogPost;
