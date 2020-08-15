@@ -11,23 +11,14 @@ const styles = theme => ({
   },
   spacer: {
     height: "75px",
-    background: "#1f2131",
   },
   spacer2: {
     height: "30px",
-    background: "#1f2131",
   },
   post: {
-    position: "relative",
-    left: "100px",
-    display: "flex",
     height: "100%",
-    width: "100%",
-    "flex-direction": "column",
-    "align-items": "center",
-    "margin-left": "50px",
-    "margin-right": "30px",
-    background: "#1f2131",
+    width: "80%",
+    "margin-left": "100px",
   },
 });
 
@@ -38,7 +29,9 @@ class BlogPost extends Component {
       <div className={classes.main}>
         <Navbar />
         <div className={classes.spacer}> </div>
-        <MarkDown className={classes.post} />
+        <div className={classes.post}>
+          <MarkDown />
+        </div>
         <div className={classes.spacer2}> </div>
       </div>
     );
