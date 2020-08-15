@@ -17,8 +17,11 @@ const styles = theme => ({
   },
   post: {
     height: "100%",
-    width: "80%",
-    "margin-left": "100px",
+    width: "100%",
+    display: "flex",
+    "justify-content": "center",
+    "margin-left": "auto",
+    "margin-right": "auto",
   },
 });
 
@@ -30,7 +33,9 @@ class BlogPost extends Component {
         <Navbar />
         <div className={classes.spacer}> </div>
         <div className={classes.post}>
+          <div className={classes.horizontal_spacer}></div>
           <MarkDown />
+          <div className={classes.horizontal_spacer}></div>
         </div>
         <div className={classes.spacer2}> </div>
       </div>

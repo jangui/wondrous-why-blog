@@ -6,6 +6,9 @@ import markDownFile from './post.md'
 const styles = theme => ({
   markdown: {
     color: "white",
+    "width": "90%",
+    "min-wdith": "360px",
+    "max-width": "960px",
     "text-align": "justify",
     //link styling
     "& a": {
