@@ -11,13 +11,16 @@ app.use(cors());
 app.use(express.json());
 
 const uri = process.env.DB_URI
-mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true } );
+mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true } );
 
 const connection = mongoose.connection;
 
 connection.once('open', () => {
   console.log("Connected to database");
 });
+
+const postRouter = require('./routes/posts');
+app.use('/posts', postRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
