@@ -6,7 +6,7 @@ import markDownFile from './post.md'
 const styles = theme => ({
   markdown: {
     color: "white",
-    "width": "90%",
+    "width": "87%",
     "min-wdith": "360px",
     "max-width": "960px",
     "text-align": "justify",
