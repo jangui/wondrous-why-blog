@@ -1,6 +1,6 @@
 import { withStyles } from '@material-ui/core';
 import React, { Component } from 'react';
-import Navbar from './Navbar';
+import Navbar from '../Navbar';
 import MarkDown from './MarkDown';
 
 const styles = theme => ({

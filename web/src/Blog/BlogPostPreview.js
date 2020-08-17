@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { Route } from 'react-router-dom';
 
 const styles = theme => ({
   post: {
@@ -12,14 +11,17 @@ const styles = theme => ({
   title: {
     'textDecorationLine': 'none',
     'font-family': "'Sanchez'",
-    'color': '#ffffff',
     "fontSize": "34px",
+    "text-align": "center",
+    'color': '#ffffff',
+    "&:hover": {
+      "color": 'purple',
+    },
   },
   date: {
     'textDecorationLine': 'none',
     'font-family': "'Sanchez'",
-    'color': '#ffffff',
-    "fontSize": "16",
+    "fontSize": "16px",
   },
   divider: {
     'textDecorationLine': 'none',
@@ -38,17 +40,27 @@ const styles = theme => ({
   },
 });
 
-function BlogPostFeed(props) {
-  const { classes } = props;
-  return (
+class BlogPostPreview extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { title: '', date: '', tags: []};
+  }
+
+  render() {
+    const { classes } = this.props;
+    return (
     <div className={classes.post}>
-      <Link className={classes.title} to="/blogpost"> Title of Blog Post </Link>
-      <div className={classes.date}> August 12 2020 </div>
+      <Link className={classes.title} to="/post">
+        { this.props.title }
+        <div className={classes.date}> { this.props.date } </div>
+      </Link>
       <div className={classes.spacer1}></div>
       <div className={classes.divider}> _________ </div>
       <div className={classes.spacer2}></div>
     </div>
-  );
+    );
+  }
 }
 
-export default withStyles(styles)(BlogPostFeed);
+export default withStyles(styles)(BlogPostPreview);

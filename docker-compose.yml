@@ -13,12 +13,16 @@ services:
       # set entrypoints
       - "--entryPoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
+      # redirect http to https
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--entrypoints.web.http.redirections.entryPoint.permanent=true"
       # ACME (Let's Encrypt) auto SSL
       - "--certificatesResolvers.leresolver.acme.email=${ACME_EMAIL}"
       - "--certificatesResolvers.leresolver.acme.storage=/letsencrypt/acme.json"
       - "--certificatesResolvers.leresolver.acme.tlsChallenge=true"
-      #- "--certificatesResolvers.leresolver.acme.httpChallenge=true"
-      #- "--certificatesResolvers.leresolver.acme.httpChallenge.entryPoint=web"
+      - "--certificatesResolvers.leresolver.acme.httpChallenge=true"
+      - "--certificatesResolvers.leresolver.acme.httpChallenge.entryPoint=web"
     restart: always
     ports:
       - "80:80"
@@ -26,7 +30,7 @@ services:
     networks:
       - traefik-proxy
     volumes:
-      # Allow traefik to listen on docker socket
+      # allow traefik to listen on docker socket
       - "/var/run/docker.sock:/var/run/docker.sock"
       # Lets Encrypt
       - "./data/letsencrypt/acme.json:/letsencrypt/acme.json"
@@ -37,7 +41,6 @@ services:
       - "traefik.http.routers.http_catchall.middlewares=https_redirect"
       - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
       - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
-
 
   web:
     build: web
@@ -54,17 +57,17 @@ services:
       - CHOKIDAR_USEPOLLING=true
       - CI=true
     labels:
-        #enable traefik auto discovery
+        # enable traefik auto discovery
       - "traefik.enable=true"
-        #entry point for router
+        # entry point for router
       - "traefik.http.routers.web.entrypoints=websecure"
-        #rule which router will route requests from
+        # rule which router will route requests from
       - "traefik.http.routers.web.rule=Host(`${DOMAIN}`)"
-        #enable tls for router
+        # enable tls for router
       - "traefik.http.routers.web.tls=true"
-        #specify cert resolver for router
+        # specify cert resolver for router
       - "traefik.http.routers.web.tls.certresolver=leresolver"
-        #tell service which port (in container) to route trafic to
+        # tell service which port (in container) to route trafic to
       - "traefik.http.services.web.loadbalancer.server.port=9000"
 
   db:
@@ -73,7 +76,7 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - "/mongodata:/data/db"
+      - "./data/db:/data/db"
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password

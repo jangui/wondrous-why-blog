@@ -1,6 +1,6 @@
 import { withStyles } from '@material-ui/core';
 import React, { Component } from 'react';
-import BlogPostFeed from './BlogPostFeed';
+import BlogPostPreview from './BlogPostPreview';
 
 const styles = theme => ({
   feed: {
@@ -18,13 +18,19 @@ class BlogFeed extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.feed}>
-        <BlogPostFeed />
-        <BlogPostFeed />
-        <BlogPostFeed />
-        <BlogPostFeed />
-        <BlogPostFeed />
-        <BlogPostFeed />
-        <BlogPostFeed />
+        <BlogPostPreview title="Why You Should Buy a Puppy in your 20's" date="august 12th 2020"/>
+        <BlogPostPreview title="The Death of Conversation" date="august 12th 2020"/>
+        <BlogPostPreview title="Why 'Wondrous Why'?" date="august 12th 2020"/>
+        <BlogPostPreview title="The Monk Life" date="august 12th 2020"/>
+        <BlogPostPreview title="The Age of Hyper Stimulus" date="august 12th 2020"/>
+        <BlogPostPreview title="Growing Old, a Youthful Take" date="august 12th 2020"/>
+        <BlogPostPreview title="Finding Meaning" date="august 12th 2020"/>
+        <BlogPostPreview title="example title" date="august 12th 2020"/>
+        <BlogPostPreview title="example title" date="august 12th 2020"/>
+        <BlogPostPreview title="example title" date="august 12th 2020"/>
+        <BlogPostPreview title="example title" date="august 12th 2020"/>
+        <BlogPostPreview title="example title" date="august 12th 2020"/>
+        <BlogPostPreview title="example title" date="august 12th 2020"/>
       </div>
     );
   }
