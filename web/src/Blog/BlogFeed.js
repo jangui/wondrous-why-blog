@@ -18,7 +18,7 @@ class BlogFeed extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.feed}>
-        <BlogPostPreview title="Why You Should Buy a Puppy in your 20's" date="august 12th 2020"/>
+        <BlogPostPreview title="Why You Should Buy a Puppy in your 20's" date="august 12th 2020" filepath='post'/>
         <BlogPostPreview title="The Death of Conversation" date="august 12th 2020"/>
         <BlogPostPreview title="Why 'Wondrous Why'?" date="august 12th 2020"/>
         <BlogPostPreview title="The Monk Life" date="august 12th 2020"/>

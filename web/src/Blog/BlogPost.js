@@ -34,7 +34,7 @@ class BlogPost extends Component {
         <div className={classes.spacer}> </div>
         <div className={classes.post}>
           <div className={classes.horizontal_spacer}></div>
-          <MarkDown />
+          <MarkDown filepath={this.props.location.pathname}/>
           <div className={classes.horizontal_spacer}></div>
         </div>
         <div className={classes.spacer2}> </div>

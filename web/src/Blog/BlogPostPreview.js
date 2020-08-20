@@ -41,17 +41,11 @@ const styles = theme => ({
 });
 
 class BlogPostPreview extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { title: '', date: '', tags: []};
-  }
-
   render() {
     const { classes } = this.props;
     return (
     <div className={classes.post}>
-      <Link className={classes.title} to="/post">
+      <Link className={classes.title} to={`/post/${this.props.filepath}`}>
         { this.props.title }
         <div className={classes.date}> { this.props.date } </div>
       </Link>

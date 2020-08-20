@@ -1,7 +1,6 @@
 import { withStyles } from '@material-ui/core';
 import React, { Component } from 'react';
 import ReactMarkdown from 'react-markdown';
-import markDownFile from './post.md'
 
 const styles = theme => ({
   markdown: {
@@ -85,13 +84,18 @@ class MarkDown extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { markdown: null, title: ''};
+    this.state = { markdown: null, path: this.props.filepath.split("/post/")[1] };
   }
 
-  componentWillMount() {
-    fetch(markDownFile).then((response) => response.text()).then((text) => {
-      this.setState({ markdown: text });
-    });
+  componentDidMount() {
+    try {
+      const filepath = require("./" + this.state.path + ".md");
+      fetch(filepath).then((response) => response.text()).then((text) => {
+        this.setState({ markdown: text });
+      });
+    } catch {
+      console.log("404"); //TODO fix
+    }
   }
 
   render() {
