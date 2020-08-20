@@ -51,6 +51,7 @@ services:
     volumes:
       - "./web:/app"
       - "/app/node_modules"
+      - "./posts:/app/src/Blog/post"
     environment:
       - HOST=0.0.0.0
       - PORT=9000

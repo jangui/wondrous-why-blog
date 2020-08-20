@@ -1,6 +1,7 @@
 import { withStyles } from '@material-ui/core';
 import React, { Component } from 'react';
 import ReactMarkdown from 'react-markdown';
+import Err404 from '../Err404';
 
 const styles = theme => ({
   markdown: {
@@ -16,7 +17,7 @@ const styles = theme => ({
     },
     "& a:hover": {
       "color": "purple",
-      "curso": "pointer",
+      "cursor": "pointer",
     },
     //table styling
     "& table": {
@@ -84,27 +85,32 @@ class MarkDown extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { markdown: null, path: this.props.filepath.split("/post/")[1] };
+    this.state = { markdown: null, err: false };
   }
 
   componentDidMount() {
     try {
-      const filepath = require("./" + this.state.path + ".md");
+      const filepath = require("." + this.props.filepath + ".md");
       fetch(filepath).then((response) => response.text()).then((text) => {
         this.setState({ markdown: text });
       });
     } catch {
-      console.log("404"); //TODO fix
+      this.setState( {err: true } );
     }
   }
 
   render() {
     const { classes } = this.props;
-    return (
-      <div className={classes.markdown}>
-        <ReactMarkdown source={this.state.markdown} />
-      </div>
-    );
+    console.log("state: " + this.state.err);
+    if (this.state.err === false) {
+      return (
+        <div className={classes.markdown}>
+          <ReactMarkdown source={this.state.markdown} />
+        </div>
+      );
+    } else {
+      return ( <Err404 /> );
+    }
   }
 }
 
