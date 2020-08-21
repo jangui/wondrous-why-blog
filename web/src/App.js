@@ -1,12 +1,18 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { Blog, BlogPost } from './Blog';
+import Err404 from "./Err404";
 
 function App() {
   return (
     <Router>
-      <Route exact path="/" component={ Blog }/>
-      <Route path="/post/:title" component={ BlogPost }/>
+      <Switch>
+        <Route exact path="/" component={ Blog } />
+        <Route path="/post/:title" component={ BlogPost } />
+        <Route path="/*" component={ Err404 } />
+        <Route path='/404' component={ Err404 } />
+        <Redirect from='*' to='/404' />
+      </Switch>
     </Router>
   );
 }

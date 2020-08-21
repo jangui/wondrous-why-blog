@@ -22,6 +22,7 @@ const styles = theme => ({
     "justify-content": "center",
     "margin-left": "auto",
     "margin-right": "auto",
+    "flex-wrap": "wrap",
   },
 });
 
@@ -33,9 +34,7 @@ class BlogPost extends Component {
         <Navbar />
         <div className={classes.spacer}> </div>
         <div className={classes.post}>
-          <div className={classes.horizontal_spacer}></div>
           <MarkDown filepath={this.props.location.pathname}/>
-          <div className={classes.horizontal_spacer}></div>
         </div>
         <div className={classes.spacer2}> </div>
       </div>

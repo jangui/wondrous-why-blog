@@ -12,12 +12,12 @@ const styles = theme => ({
     "text-align": "center",
     },
   spacer: {
-    height: "20px",
+    height: "90px",
     background: "#1f2131",
   },
   "err": {
     "color": "pink",
-    "font-size": "32px",
+    "font-size": "36px",
     "text-decoration": "none",
     "&:hover": {
       "color": "purple",

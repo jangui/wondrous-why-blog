@@ -1,7 +1,7 @@
 import { withStyles } from '@material-ui/core';
 import React, { Component } from 'react';
 import ReactMarkdown from 'react-markdown';
-import Err404 from '../Err404';
+import { Link } from 'react-router-dom';
 
 const styles = theme => ({
   markdown: {
@@ -79,6 +79,21 @@ const styles = theme => ({
     }
     */
   },
+  post404: {
+    width: "100%",
+    "text-align": "center",
+    "color": "pink",
+    "font-size": "36px",
+    "text-decoration": "none",
+    "&:hover": {
+      "color": "purple",
+      "cursor": "pointer",
+    },
+  },
+  spacer404: {
+    "width": "100%",
+    "height": "15px",
+  },
 });
 
 class MarkDown extends Component {
@@ -109,7 +124,12 @@ class MarkDown extends Component {
         </div>
       );
     } else {
-      return ( <Err404 /> );
+      return (
+        <>
+          <div className={classes.spacer404}></div>
+          <Link className={classes.post404} to='/'> 404 Page Not Found </Link>
+        </>
+      );
     }
   }
 }
