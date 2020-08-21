@@ -1,6 +1,7 @@
 const router = require('express').Router();
 let Post = require('../models/post.model');
 
+
 // get all posts
 router.route('/').get( async (req, res) => {
   try {
@@ -11,14 +12,37 @@ router.route('/').get( async (req, res) => {
   }
 });
 
+// get posts count
+router.route('/count').get( async (req, res) => {
+  try {
+    let count = await Post.countDocuments();
+    return res.json(count)
+  } catch(err) {
+    return res.status(400).json('Error: ' + err);
+  }
+});
+
+// get some post
+router.route('/').post( async (req, res) => {
+  const s = parseInt(req.body.skip);
+  const l = parseInt(req.body.limit);
+  try {
+    let posts = await Post.find().skip(s).limit(l);
+    return res.json(posts)
+  } catch(err) {
+    return res.status(400).json('Error: ' + err);
+  }
+});
+
 // add post
 router.route('/add').post( async (req, res) => {
   const title = req.body.title;
+  const filepath = req.body.filepath;
   const date = Date.parse(req.body.date);
   //const tags = req.body.tags;
 
-  //const newPost = new Post({title, date, tags});
-  const newPost = new Post({title, date});
+  //const newPost = new Post({title, filepath, date, tags});
+  const newPost = new Post({title, filepath, date});
 
   try {
     let response = await newPost.save();
@@ -48,11 +72,12 @@ router.route('/:id').delete( async (req, res) => {
   }
 });
 
-// update post (currently only updating title allowed)
+// update post
 router.route('/update/:id').post( async (req, res) => {
   try {
     let postDoc = await Post.findById(req.params.id);
     postDoc.title = req.body.title;
+    postDoc.filepath = req.body.filepath;
 
     try {
       let response = await postDoc.save();

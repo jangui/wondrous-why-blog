@@ -1,6 +1,7 @@
 import { withStyles } from '@material-ui/core';
 import React, { Component } from 'react';
 import BlogPostPreview from './BlogPostPreview';
+import axios from 'axios';
 
 const styles = theme => ({
   feed: {
@@ -14,6 +15,46 @@ const styles = theme => ({
 });
 
 class BlogFeed extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { total_posts: 0, posts: [], skip: 0, limit: 10 };
+  }
+
+  async componentDidMount() {
+    try {
+      const options = {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        }
+      }
+      let res = await fetch('http://backend:5000/posts/', options);
+      console.log(res);
+      //const count = parseInt(res.data);
+      //this.setState({ total_posts: count });
+    } catch (err) {
+      console.log(err);
+    }
+
+    const payload = {
+      "skip": this.state.skip,
+      "limit": this.state.limit,
+    }
+
+    /*
+    try {
+      let resp = await axios.post(`backend:5000/posts/`, { payload });
+      console.log(resp.data);
+      this.setState({ skip: this.state.skip + this.state.limit, limit: 20 });
+    } catch (err) {
+      console.log(err);
+    }
+    */
+  }
+
+
   render() {
     const { classes } = this.props;
     return (

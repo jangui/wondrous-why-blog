@@ -6,6 +6,12 @@ const postSchema = new Schema({
   title: {
     type: String,
     required: true,
+    trim: true,
+    minlength: 1,
+  },
+  filepath: {
+    type: String,
+    required: true,
     unique: true,
     trim: true,
     minlength: 1,
