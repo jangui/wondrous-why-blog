@@ -1,6 +1,7 @@
 import { withStyles } from '@material-ui/core';
 import React, { Component } from 'react';
 import BlogPostPreview from './BlogPostPreview';
+import FailedSearch from './FailedSearch';
 import debounce from "lodash.debounce";
 
 const url = 'https://api.' + process.env.REACT_APP_DOMAIN + '/';
@@ -28,6 +29,7 @@ class BlogFeed extends Component {
       loadedPosts: 0,
       isLoading: false,
       error: false,
+      searched: false,
     };
 
     // scroll event handler
@@ -56,11 +58,14 @@ class BlogFeed extends Component {
   async componentDidMount() {
     // get total posts
     try {
+      const payload = { "search": this.props.search }
       const options = {
-        method: "GET",
+        method: "POST",
         headers: {
           'Authorization': process.env.REACT_APP_AUTH,
-        }
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
       }
       let res = await fetch(url + 'posts/count', options);
       let response = await res.json();
@@ -73,7 +78,7 @@ class BlogFeed extends Component {
 
     // load posts
     this.loadPosts();
-    this.setState({ limit: 10 });
+    setTimeout( () => this.setState({ searched: true }), 100);
   }
 
   loadPosts = () => {
@@ -82,6 +87,7 @@ class BlogFeed extends Component {
         const payload = {
           "skip": this.state.skip,
           "limit": this.state.limit,
+          "search": this.props.search,
         }
         const options = {
           method: "POST",
@@ -91,8 +97,14 @@ class BlogFeed extends Component {
           },
           body: JSON.stringify(payload),
         }
-        let res_posts = await fetch(url + 'posts/', options);
+        let res_posts = await fetch(url + 'posts/search', options);
         let loadedPosts = await res_posts.json();
+
+        //check that we'll only try to load remaining posts
+        if (this.state.skip + this.state.limit >= this.state.totalPosts) {
+          this.setState({limit: this.state.totalPosts - this.state.skip});
+        }
+
         this.setState({
           posts: [
             ...this.state.posts,
@@ -110,6 +122,15 @@ class BlogFeed extends Component {
 
   render() {
     const { classes } = this.props;
+    if (
+      this.state.searched === true
+      && !(this.props.search === '')
+      && this.state.posts.length === 0
+    ) {
+      return (
+        <FailedSearch />
+      );
+    }
     return (
       <div className={classes.feed}>
         {this.state.posts.map( (obj, index) => {

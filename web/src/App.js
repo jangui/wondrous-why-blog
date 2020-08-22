@@ -7,8 +7,11 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/" component={ Blog } />
+        <Route exact path="/" component={ (props) => (
+          <Blog timestamp={new Date().toString()} location = {{"pathname": "/"}}/>
+        )}/>
         <Route path="/post/:title" component={ BlogPost } />
+        <Route path="/search/:search" component={ Blog } />
         <Route path="/*" component={ Err404 } />
         <Route path='/404' component={ Err404 } />
         <Redirect from='*' to='/404' />

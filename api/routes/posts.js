@@ -19,8 +19,8 @@ router.route('/').get( async (req, res) => {
   }
 });
 
-// get posts count
-router.route('/count').get( async (req, res) => {
+// get total posts count
+router.route('/total').get( async (req, res) => {
   try {
     checkAuth(req.header('Authorization'));
     let count = await Post.countDocuments();
@@ -55,6 +55,19 @@ router.route('/search/').post( async (req, res) => {
       {date: -1}
     ).skip(s).limit(l);
     return res.json(posts)
+  } catch(err) {
+    return res.status(400).json('Error: ' + err);
+  }
+});
+
+// get total posts count based off search
+router.route('/count').post( async (req, res) => {
+  try {
+    checkAuth(req.header('Authorization'));
+    let count = await Post.find(
+      {title: {"$regex": req.body.search, "$options": "i"}}
+    ).countDocuments();
+    return res.json(count)
   } catch(err) {
     return res.status(400).json('Error: ' + err);
   }
