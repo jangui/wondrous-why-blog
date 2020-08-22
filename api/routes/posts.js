@@ -43,6 +43,23 @@ router.route('/').post( async (req, res) => {
   }
 });
 
+// search posts based on title
+router.route('/search/').post( async (req, res) => {
+  const s = parseInt(req.body.skip);
+  const l = parseInt(req.body.limit);
+  try {
+    checkAuth(req.header('Authorization'));
+    let posts = await Post.find(
+      {title: {"$regex": req.body.search, "$options": "i"}}
+    ).sort(
+      {date: -1}
+    ).skip(s).limit(l);
+    return res.json(posts)
+  } catch(err) {
+    return res.status(400).json('Error: ' + err);
+  }
+});
+
 // add post
 router.route('/add').post( async (req, res) => {
   const title = req.body.title;
