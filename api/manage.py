@@ -3,19 +3,20 @@
 import os
 import requests
 from datetime import datetime
+import json
 
 def add(env):
     url = env['domain'] + '/add'
     while True:
         title = input("title: ")
         filepath = input("filepath: ")
-        #tags = input("tags (comma seperated): ").split(",")
-        #tags = [tag.strip() for tag in tags]
+        tags = input("tags (comma seperated): ").split(",")
+        tags = [tag.strip() for tag in tags]
         cont = input("Is this info correct? (y/n) ")
         if (cont == 'y'):
             break
     headers = {'Authorization': env['auth'], 'Content-Type': 'application/json'}
-    payload = {'title': title, 'filepath': filepath, 'date': str(datetime.now())}
+    payload = {'title': title, 'filepath': filepath, 'date': str(datetime.now()), 'tags': json.dumps(tags)}
     res = requests.post(url, headers=headers, json=payload)
     print(res.text)
 
@@ -31,8 +32,26 @@ def view(env):
     payload = {'skip': skip, 'limit': limit}
     res = requests.post(env['domain'], headers=headers, json=payload)
     posts = res.json()
+    while True:
+        cont = input("Verbose? (y/n) ")
+        if (cont == 'y'):
+            v = True
+            break
+        if (cont == 'n'):
+            v = False
+            break
     for i, post in enumerate(posts):
-        print(f"[{str(i)}] {post['title']}")
+        if v == False:
+            print(f"[{str(i)}] {post['title']}")
+        else:
+            msg = f"[{str(i)}] {post['title']}"
+            msg += f"\n\t{post['filepath']}"
+            msg += f"\n\t{post['date']}"
+            if (len(post['tags']) > 0):
+                msg += f"\n\ttags:"
+                for tag in post['tags']:
+                    msg += f"\n\t\t{tag}"
+            print(msg, "\n")
 
 def search(env):
     url = env['domain'] + '/search'

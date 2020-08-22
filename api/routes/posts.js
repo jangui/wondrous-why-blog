@@ -50,7 +50,12 @@ router.route('/search/').post( async (req, res) => {
   try {
     checkAuth(req.header('Authorization'));
     let posts = await Post.find(
-      {title: {"$regex": req.body.search, "$options": "i"}}
+      {
+        $or:[
+          {title: {"$regex": req.body.search, "$options": "i"}},
+          {tags: {"$regex": req.body.search, "$options": "i"}},
+        ]
+      }
     ).sort(
       {date: -1}
     ).skip(s).limit(l);
@@ -78,10 +83,9 @@ router.route('/add').post( async (req, res) => {
   const title = req.body.title;
   const filepath = req.body.filepath;
   const date = Date.parse(req.body.date);
-  //const tags = req.body.tags;
+  const tags = req.body.tags;
 
-  //const newPost = new Post({title, filepath, date, tags});
-  const newPost = new Post({title, filepath, date});
+  const newPost = new Post({title, filepath, date, tags});
 
   try {
     checkAuth(req.header('Authorization'));
