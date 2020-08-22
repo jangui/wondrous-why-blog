@@ -16,7 +16,7 @@ const postSchema = new Schema({
     trim: true,
     minlength: 1,
   },
-  date: { type: Date, required: true },
+  date: { type : Date, required: true },
   tags: [{ type: String }],
 }, {
   timestamps: true,

@@ -1,7 +1,8 @@
 import { withStyles } from '@material-ui/core';
 import React, { Component } from 'react';
 import BlogPostPreview from './BlogPostPreview';
-import axios from 'axios';
+
+const url = 'https://api.' + process.env.REACT_APP_DOMAIN + '/';
 
 const styles = theme => ({
   feed: {
@@ -18,7 +19,7 @@ class BlogFeed extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { total_posts: 0, posts: [], skip: 0, limit: 10 };
+    this.state = { total_posts: 0, posts: [], skip: 0, limit: 3 };
   }
 
   async componentDidMount() {
@@ -26,32 +27,38 @@ class BlogFeed extends Component {
       const options = {
         method: "GET",
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
+          'Authorization': process.env.REACT_APP_AUTH,
         }
       }
-      let res = await fetch('http://backend:5000/posts/', options);
-      console.log(res);
-      //const count = parseInt(res.data);
-      //this.setState({ total_posts: count });
+      let res = await fetch(url + 'posts/count', options);
+      let response = await res.json();
+      const count = parseInt(response);
+      this.setState({ total_posts: count });
     } catch (err) {
       console.log(err);
     }
 
-    const payload = {
-      "skip": this.state.skip,
-      "limit": this.state.limit,
-    }
 
-    /*
     try {
-      let resp = await axios.post(`backend:5000/posts/`, { payload });
-      console.log(resp.data);
-      this.setState({ skip: this.state.skip + this.state.limit, limit: 20 });
+      const payload = {
+        "skip": this.state.skip,
+        "limit": this.state.limit,
+      }
+      const options = {
+        method: "POST",
+        headers: {
+          'Authorization': process.env.REACT_APP_AUTH,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      }
+      let res_posts = await fetch(url + 'posts/', options);
+      let posts = await res_posts.json();
+      console.log(posts);
+      this.setState({ posts: posts, skip: this.state.skip + this.state.limit, limit: 3 });
     } catch (err) {
       console.log(err);
     }
-    */
   }
 
 
@@ -59,6 +66,9 @@ class BlogFeed extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.feed}>
+        {this.state.posts.map( obj => (
+          <BlogPostPreview title={obj.title} date={obj.date} filepath={obj.filepath}/>
+        ))}
         <BlogPostPreview title="Why You Should Buy a Puppy in your 20's" date="august 12th 2020" filepath='post'/>
         <BlogPostPreview title="The Death of Conversation" date="august 12th 2020"/>
         <BlogPostPreview title="Why 'Wondrous Why'?" date="august 12th 2020"/>

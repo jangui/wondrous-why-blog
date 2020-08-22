@@ -57,6 +57,8 @@ services:
       - PORT=9000
       - CHOKIDAR_USEPOLLING=true
       - CI=true
+      - "REACT_APP_AUTH=${AUTH}"
+      - "REACT_APP_DOMAIN=${DOMAIN}"
     labels:
         # enable traefik auto discovery
       - "traefik.enable=true"
@@ -86,18 +88,29 @@ services:
     labels:
       - "traefik.enable=false"
 
-  backend:
-    build: backend
+  api:
+    build: api
     restart: always
-    ports:
-      - "5000:5000"
+    environment:
+      - AUTH=${AUTH}
     networks:
       - traefik-proxy
     volumes:
-      - "./backend:/app"
-      - "/backend/node_modules"
+      - "./api:/app"
+      - "/app/node_modules"
     labels:
-      - "traefik.enable=false"
+        # enable traefik auto discovery
+      - "traefik.enable=true"
+        # entry point for router
+      - "traefik.http.routers.api.entrypoints=websecure"
+        # rule which router will route requests from
+      - "traefik.http.routers.api.rule=Host(`api.${DOMAIN}`)"
+        # enable tls for router
+      - "traefik.http.routers.api.tls=true"
+        # specify cert resolver for router
+      - "traefik.http.routers.api.tls.certresolver=leresolver"
+        # tell service which port (in container) to route trafic to
+      - "traefik.http.services.api.loadbalancer.server.port=5000"
 
 networks:
     traefik-proxy:
