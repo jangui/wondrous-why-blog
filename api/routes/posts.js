@@ -36,7 +36,7 @@ router.route('/').post( async (req, res) => {
   const l = parseInt(req.body.limit);
   try {
     checkAuth(req.header('Authorization'));
-    let posts = await Post.find().skip(s).limit(l);
+    let posts = await Post.find().sort({date: -1}).skip(s).limit(l);
     return res.json(posts)
   } catch(err) {
     return res.status(400).json('Error: ' + err);
