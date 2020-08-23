@@ -56,7 +56,7 @@ class Navbar extends Component {
           <Link className={classes.nav__link} to='/'>Wondrous Why</Link>
         </div>
         <div className={classes.nav__right}>
-          <form type="text">
+          <form type="text" action="/search/">
             <input
               type="sumbit"
               name="search"
