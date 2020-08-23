@@ -48,9 +48,11 @@ def view(env):
             msg += f"\n\t{post['filepath']}"
             msg += f"\n\t{post['date']}"
             if (len(post['tags']) > 0):
-                msg += f"\n\ttags:"
-                for tag in post['tags']:
-                    msg += f"\n\t\t{tag}"
+                tags = json.loads(post['tags'][0])
+                if (tags != ['']):
+                    msg += f"\n\ttags:"
+                    for tag in tags:
+                        msg += f"\n\t\t{tag}"
             print(msg, "\n")
 
 def search(env):

@@ -36,6 +36,12 @@ const styles = theme => ({
     'display': 'flex',
     'flex-direction': 'row',
     'justify-content': 'space-between',
+  },
+  search_submit: {
+    'background': '#303345',
+    'color': '#ffffff',
+    'border': "none",
+    'margin-top': '9px'
   }
 });
 
@@ -50,7 +56,14 @@ class Navbar extends Component {
           <Link className={classes.nav__link} to='/'>Wondrous Why</Link>
         </div>
         <div className={classes.nav__right}>
-          <Link className={classes.nav__link} to="/search">Q</Link>
+          <form type="text">
+            <input
+              type="sumbit"
+              name="search"
+              className={classes.search_submit}
+              placeholder="Search ..."
+            />
+          </form>
         </div>
       </nav>
     );

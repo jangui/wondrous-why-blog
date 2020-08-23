@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import BlogPostPreview from './BlogPostPreview';
 import FailedSearch from './FailedSearch';
 import debounce from "lodash.debounce";
+import queryString from 'query-string';
 
 const url = 'https://api.' + process.env.REACT_APP_DOMAIN + '/';
 
@@ -29,6 +30,7 @@ class BlogFeed extends Component {
       loadedPosts: 0,
       isLoading: false,
       error: false,
+      search: '',
       searched: false,
     };
 
@@ -58,7 +60,11 @@ class BlogFeed extends Component {
   async componentDidMount() {
     // get total posts
     try {
-      const payload = { "search": this.props.search }
+      let path = this.props.search;
+      let params = queryString.parse(path);
+      let search = (typeof params['search'] === 'undefined') ? '' : params['search'];
+      this.setState({search: search});
+      const payload = { "search": search }
       const options = {
         method: "POST",
         headers: {
@@ -87,7 +93,7 @@ class BlogFeed extends Component {
         const payload = {
           "skip": this.state.skip,
           "limit": this.state.limit,
-          "search": this.props.search,
+          "search": this.state.search,
         }
         const options = {
           method: "POST",
@@ -115,6 +121,7 @@ class BlogFeed extends Component {
         });
       } catch (err) {
         this.setState({ error: err.message, isLoading: false });
+        console.log(err.message);
       }
     });
   }

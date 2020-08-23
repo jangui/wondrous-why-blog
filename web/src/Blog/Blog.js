@@ -19,24 +19,13 @@ const styles = theme => ({
 class Blog extends Component {
   render() {
     const { classes } = this.props;
-    if (this.props.location.pathname === '/') {
-      return (
-        <div className={classes.main}>
-          <Navbar />
-          <div className={classes.spacer}></div>
-          <BlogFeed search=''/>
-        </div>
-      );
-    } else {
-      const search = this.props.location.pathname.split('/search/')[1]
-      return (
-        <div className={classes.main}>
-          <Navbar />
-          <div className={classes.spacer}></div>
-          <BlogFeed search={search}/>
-        </div>
-      );
-    }
+    return (
+      <div className={classes.main}>
+        <Navbar />
+        <div className={classes.spacer}></div>
+        <BlogFeed search={this.props.location.search}/>
+      </div>
+    );
   }
 }
 
