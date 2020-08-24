@@ -14,6 +14,7 @@ const styles = theme => ({
     'width': '60%',
     'z-index': '200',
     'transform': 'translateX(-100%)',
+    'transition': 'transform 0.3s ease-out',
     '& ul': {
       'list-style': 'none',
       'display': 'flex',
@@ -30,20 +31,22 @@ const styles = theme => ({
       '&:hover': {
         'color': 'pink',
       },
-
     },
-   'open': {
-      'composes': '$sidePanel',
-      'transform': 'translateX(0)',
-   },
+  },
+  extend: {
+    'transform': 'translateX(0%)',
   },
 });
 
 class SidePanel extends Component {
   render() {
     const { classes } = this.props;
+    let style = classes.sidePanel;
+    if (this.props.visible) {
+      style = `${classes.sidePanel} ${classes.extend}`;
+    }
     return (
-      <nav className={this.props.visible ? `${classes.sidePanel} ${classes.open}` : classes.sidePanel}>
+      <nav className={style}>
         <ul>
           <li><Link to="/about">About</Link></li>
           <li><Link to="/">Filter: New</Link></li>
