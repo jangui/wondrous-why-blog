@@ -9,12 +9,14 @@ const url = 'https://api.' + process.env.REACT_APP_DOMAIN + '/';
 
 const styles = theme => ({
   feed: {
-    display: "flex",
-    height: "100%",
-    width: "100%",
-    "flex-direction": "column",
-    "align-items": "center",
-    background: "#1f2131",
+    'display': 'flex',
+    'height': '100%',
+    'width': '100%',
+    'flex-direction': 'column',
+    'align-items': 'center',
+    'justify-content': 'center',
+    'background': "#1f2131",
+    'flex-wrap': 'nowrap',
   },
 });
 

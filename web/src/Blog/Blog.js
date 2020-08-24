@@ -9,13 +9,12 @@ import Err404 from '../Err404';
 
 const styles = theme => ({
   main: {
-    height: "100%",
-    width: "100%",
-    background: "#1f2131",
+    'width': '100%',
+    'background': '#1f2131',
   },
   spacer: {
-    height: "100px",
-    background: "#1f2131",
+    'height': '100px',
+    'background': '#1f2131',
   },
 
 });

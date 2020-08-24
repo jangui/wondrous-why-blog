@@ -4,39 +4,39 @@ import { Link } from 'react-router-dom';
 
 const styles = theme => ({
   post: {
-    display: "flex",
-    "flex-direction": "column",
-    "align-items": "center",
+    'display': 'flex',
+    'flex-direction': 'column',
+    'align-items': 'center',
   },
   title: {
     'textDecorationLine': 'none',
-    'font-family': "'Sanchez'",
-    "fontSize": "34px",
-    "text-align": "center",
+    'font-family': '"Sanchez"',
+    'fontSize': '34px',
+    'text-align': 'center',
     'color': '#ffffff',
-    "&:hover": {
-      "color": 'purple',
+    '&:hover': {
+      'color': 'purple',
     },
   },
   date: {
     'textDecorationLine': 'none',
-    'font-family': "'Sanchez'",
-    "fontSize": "16px",
+    'font-family': '"Sanchez"',
+    'fontSize': '16px',
   },
   divider: {
     'textDecorationLine': 'none',
-    'font-family': "'Sanchez'",
+    'font-family': '"Sanchez"',
     'color': '#6f6f6f',
-    "fontSize": "10px",
-    "flex-grow": "1",
+    'fontSize': '10px',
+    'flex-grow': '1',
   },
   spacer1: {
-    height: "40px",
-    background: "#1f2131",
+    'height': '40px',
+    'background': '#1f2131',
   },
   spacer2: {
-    height: "50px",
-    background: "#1f2131",
+    'height': '50px',
+    'background': '#1f2131',
   },
 });
 
