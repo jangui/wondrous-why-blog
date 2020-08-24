@@ -1,6 +1,7 @@
 import { withStyles } from '@material-ui/core';
 import React, { Component } from 'react';
-import Navbar from '../Navbar';
+import Navbar from '../Navbar/Navbar';
+import SidePanel from '../SidePanel';
 import MarkDown from './MarkDown';
 
 const styles = theme => ({
@@ -32,6 +33,7 @@ class BlogPost extends Component {
     return (
       <div className={classes.main}>
         <Navbar />
+        <SidePanel />
         <div className={classes.spacer}> </div>
         <div className={classes.post}>
           <MarkDown filepath={this.props.location.pathname}/>
