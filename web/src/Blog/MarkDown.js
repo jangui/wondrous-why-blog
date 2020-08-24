@@ -2,10 +2,11 @@ import { withStyles } from '@material-ui/core';
 import React, { Component } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
+import Err404 from '../Err404';
 
 const styles = theme => ({
   markdown: {
-    color: "white",
+    'color': "white",
     "width": "87%",
     "min-wdith": "360px",
     "max-width": "960px",
@@ -79,20 +80,8 @@ const styles = theme => ({
     }
     */
   },
-  post404: {
-    width: "100%",
-    "text-align": "center",
-    "color": "pink",
-    "font-size": "36px",
-    "text-decoration": "none",
-    "&:hover": {
-      "color": "purple",
-      "cursor": "pointer",
-    },
-  },
-  spacer404: {
-    "width": "100%",
-    "height": "15px",
+  spacer: {
+    height: '30px',
   },
 });
 
@@ -116,21 +105,18 @@ class MarkDown extends Component {
 
   render() {
     const { classes } = this.props;
-    console.log("state: " + this.state.err);
-    if (this.state.err === false) {
-      return (
-        <div className={classes.markdown}>
-          <ReactMarkdown source={this.state.markdown} />
-        </div>
-      );
-    } else {
-      return (
-        <>
-          <div className={classes.spacer404}></div>
-          <Link className={classes.post404} to='/'> 404 Page Not Found </Link>
-        </>
-      );
+
+    // load 404 if post not found
+    let content = <ReactMarkdown source={this.state.markdown} />
+    if (this.state.err === true) {
+      content = <> <div className={classes.spacer}></div><Err404 /> </>
     }
+
+    return (
+      <div className={classes.markdown}>
+        {content}
+      </div>
+    );
   }
 }
 

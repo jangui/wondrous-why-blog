@@ -4,6 +4,8 @@ import Navbar from '../Navbar/Navbar';
 import SidePanel from '../SidePanel';
 import BackDrop from '../BackDrop';
 import BlogFeed from './BlogFeed';
+import BlogPost from './BlogPost';
+import Err404 from '../Err404';
 
 const styles = theme => ({
   main: {
@@ -27,6 +29,10 @@ class Blog extends Component {
     };
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
+
   sidePanelClickHandler = () => {
     this.setState( (prevState) => {
       return {sidePanelOpen: !prevState.sidePanelOpen}
@@ -38,6 +44,7 @@ class Blog extends Component {
     this.setState({sidePanelOpen: false});
   };
 
+
   render() {
     const { classes } = this.props;
     let backDrop;
@@ -46,13 +53,20 @@ class Blog extends Component {
       backDrop = <BackDrop clickHandler={this.backDropClickHandler}/>;
     }
 
+    let content = <BlogFeed search={this.props.location.search}/>
+    if (this.props.content == "err404") {
+      content = <Err404 />
+    } else if ( this.props.content == "post") {
+      content = <BlogPost location={this.props.location}/>
+    }
+
     return (
       <div className={classes.main}>
         <Navbar panelClickHandler={this.sidePanelClickHandler}/>
-        <SidePanel visible={this.state.sidePanelOpen}/>;
+        <SidePanel visible={this.state.sidePanelOpen}/>
         {backDrop}
         <div className={classes.spacer}></div>
-        <BlogFeed search={this.props.location.search}/>
+        {content}
       </div>
     );
   }

@@ -41,7 +41,7 @@ const styles = theme => ({
 class SidePanel extends Component {
   render() {
     const { classes } = this.props;
-    let style = classes.sidePanel;
+    let style = classes.sidePanel
     if (this.props.visible) {
       style = `${classes.sidePanel} ${classes.extend}`;
     }

@@ -1,27 +1,21 @@
-import { withStyles } from '@material-ui/core';
 import React, { Component } from 'react';
+import { withStyles } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import Navbar from './Navbar/Navbar';
-
 
 const styles = theme => ({
   main: {
     'width': '100%',
-    'height': '100%',
-    background: "#1f2131",
-    "text-align": "center",
+    'background': '#1f2131',
+    'text-align': 'center',
+    'margin-top': '-20px',
     },
-  spacer: {
-    height: "90px",
-    background: "#1f2131",
-  },
-  "err": {
-    "color": "pink",
-    "font-size": "36px",
-    "text-decoration": "none",
-    "&:hover": {
-      "color": "purple",
-      "cursor": "pointer",
+  'err': {
+    'color': 'pink',
+    'font-size': '36px',
+    'text-decoration': 'none',
+    '&:hover': {
+      'color': 'purple',
+      'cursor': 'pointer',
     },
   },
 });
@@ -32,8 +26,6 @@ class Err404 extends Component {
 
     return (
       <div className={classes.main}>
-        <Navbar />
-        <div className={classes.spacer}></div>
         <Link className={classes.err} to='/'>404 Page Not Found</Link>
       </div>
     );

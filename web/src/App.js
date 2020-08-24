@@ -8,13 +8,28 @@ class App extends Component {
     return (
       <Router>
         <Switch>
+          // home
           <Route exact path="/" component={ (props) => (
-            <Blog timestamp={new Date().toString()} {...props}/>
+            <Blog timestamp={new Date().toString()} content="feed" {...props}/>
           )}/>
-          <Route path="/post/:title" component={ BlogPost } />
-          <Route path="/search/" component={ Blog } />
-          <Route path="/*" component={ Err404 } />
-          <Route path='/404' component={ Err404 } />
+
+          // post
+          <Route path="/post/:title" component={ (props) => (
+            <Blog content="post" {...props}/>
+          )}/>
+
+          // search
+          <Route path="/search/" component={ (props) => (
+            <Blog content="feed" {...props} />
+          )}/>
+
+          // 404
+          <Route path="/*" component={ (props) => (
+            <Blog content="err404" {...props} />
+          )}/>
+          <Route path='/404' component={ (props) => (
+            <Blog content="err404" {...props} />
+          )}/>
           <Redirect from='*' to='/404' />
         </Switch>
       </Router>
