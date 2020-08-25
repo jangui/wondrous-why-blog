@@ -1,8 +1,7 @@
 import { withStyles } from '@material-ui/core';
 import React, { Component } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Link } from 'react-router-dom';
-import Err404 from '../Err404';
+import { Err404 } from '../Err';
 
 const styles = theme => ({
   markdown: {

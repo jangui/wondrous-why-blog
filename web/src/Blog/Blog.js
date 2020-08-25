@@ -1,11 +1,11 @@
 import { withStyles } from '@material-ui/core';
 import React, { Component } from 'react';
-import Navbar from '../Navbar/Navbar';
-import SidePanel from '../SidePanel';
-import BackDrop from '../BackDrop';
+import Navbar from '../Navbar';
+import { SidePanel } from '../SidePanel';
+import BackDrop from '../SidePanel/BackDrop';
 import BlogFeed from './BlogFeed';
 import BlogPost from './BlogPost';
-import Err404 from '../Err404';
+import { Err404 } from '../Err';
 
 const styles = theme => ({
   main: {
@@ -53,9 +53,9 @@ class Blog extends Component {
     }
 
     let content = <BlogFeed search={this.props.location.search}/>
-    if (this.props.content == "err404") {
+    if (this.props.content === "err404") {
       content = <Err404 />
-    } else if ( this.props.content == "post") {
+    } else if ( this.props.content === "post") {
       content = <BlogPost location={this.props.location}/>
     }
 
