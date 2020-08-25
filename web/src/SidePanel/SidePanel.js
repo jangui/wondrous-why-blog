@@ -27,6 +27,8 @@ const styles = theme => ({
     },
     '& a': {
       'color': 'purple',
+      'font-family': '"Sanchez"',
+      'font-size': '16px',
       'text-decoration': 'none',
       '&:hover': {
         'color': 'pink',
@@ -36,20 +38,41 @@ const styles = theme => ({
   extend: {
     'transform': 'translateX(0%)',
   },
+  orderButton: {
+    'background-color': 'transparent',
+    'font-family': '"Sanchez"',
+    'font-size': '16px',
+    'border': 'none',
+    'text-decoration': 'none',
+    'color': 'purple',
+    'padding': '0px 0px',
+    '&:hover': {
+      'color': 'pink',
+    },
+  },
 });
 
 class SidePanel extends Component {
   render() {
     const { classes } = this.props;
+
+    // side bar animation
     let style = classes.sidePanel
     if (this.props.visible) {
       style = `${classes.sidePanel} ${classes.extend}`;
     }
+
     return (
       <nav className={style}>
         <ul>
           <li><Link to="/about">About</Link></li>
-          <li><Link to="/">Filter: New</Link></li>
+          <li>
+            <button
+              className={classes.orderButton}
+              onClick={this.props.orderClickHandler}>
+            Order: {this.props.order}
+            </button>
+          </li>
         </ul>
       </nav>
     );

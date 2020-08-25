@@ -5,58 +5,58 @@ import { Err404 } from '../Err';
 
 const styles = theme => ({
   markdown: {
-    'color': "white",
-    "width": "87%",
-    "min-wdith": "360px",
-    "max-width": "960px",
-    "text-align": "justify",
+    'color': 'white',
+    'width': '87%',
+    'min-wdith': '360px',
+    'max-width': '960px',
+    'text-align': 'justify',
     //link styling
-    "& a": {
-      "color": "pink",
-      "text-decoration": "none",
+    '& a': {
+      'color': 'pink',
+      'text-decoration': 'none',
     },
-    "& a:hover": {
-      "color": "purple",
-      "cursor": "pointer",
+    '& a:hover': {
+      'color': 'purple',
+      'cursor': 'pointer',
     },
     //table styling
-    "& table": {
-      "border-collapse": "collapse",
-      "display": "block",
-      "overflow": "auto",
+    '& table': {
+      'border-collapse': 'collapse',
+      'display': 'block',
+      'overflow': 'auto',
     },
-    "& th": {
-      "padding": "15px",
-      "text-align": "left",
-      "border-bottom": "1px solid #6f6f6f",
+    '& th': {
+      'padding': '15px',
+      'text-align': 'left',
+      'border-bottom': '1px solid #6f6f6f',
     },
-    "& td": {
-      "color": "#e8e8e8",
-      "padding": "15px",
-      "text-align": "left",
-      "border-left": "none",
-      "border-right": "none",
-      "border-bottom": "1px solid #6f6f6f",
+    '& td': {
+      'color': '#e8e8e8',
+      'padding': '15px',
+      'text-align': 'left',
+      'border-left': 'none',
+      'border-right': 'none',
+      'border-bottom': '1px solid #6f6f6f',
     },
-    "& tr:hover": {
-      "background-color": "#303245",
+    '& tr:hover': {
+      'background-color': '#303245',
     },
     //code styling
-    "& pre": {
-      "padding": "20px",
-      "overflow-x": "auto",
+    '& pre': {
+      'padding': '20px',
+      'overflow-x': 'auto',
     },
     //paragraph styling
-    "& p": {
-      "text-indent": "30px",
+    '& p': {
+      'text-indent': '30px',
     },
     //blockqoute styling
-    "& blockqoute": {
-      "margin-top": "10px",
-      "margin-bottom": "10px",
-      "margin-left": "50px",
-      "padding-left": "15px",
-      "border-left": "3px solid #ffffff",
+    '& blockqoute': {
+      'margin-top': '10px',
+      'margin-bottom': '10px',
+      'margin-left': '50px',
+      'padding-left': '15px',
+      'border-left': '3px solid #ffffff',
     },
     /*
     "& blockqoute": {
@@ -80,7 +80,7 @@ const styles = theme => ({
     */
   },
   spacer: {
-    height: '30px',
+    'height': '30px',
   },
 });
 

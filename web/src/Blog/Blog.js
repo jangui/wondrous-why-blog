@@ -11,6 +11,7 @@ const styles = theme => ({
   main: {
     'width': '100%',
     'background': '#1f2131',
+    'font-family': '"Sanchez"',
   },
   spacer: {
     'height': '100px',
@@ -25,18 +26,30 @@ class Blog extends Component {
 
     this.state = {
       sidePanelOpen: false,
+      order: ['new', 'old'],
+      orderInd: 0,
+      orderOld: null,
+      feedKey: 0,
     };
   }
 
   componentDidMount() {
-    window.scrollTo(0, 0)
+    let order = this.state.order[this.state.orderInd];
+    this.setState( {orderOld: order} );
+    window.scrollTo(0, 0);
   }
 
   sidePanelClickHandler = () => {
     this.setState( (prevState) => {
       return {sidePanelOpen: !prevState.sidePanelOpen}
     });
+  };
 
+  orderClickHandler = () => {
+    let newOrderInd = (this.state.orderInd + 1) % this.state.order.length;
+    this.setState( (prevState) => {
+      return {orderInd: newOrderInd}
+    });
   };
 
   backDropClickHandler = () => {
@@ -52,7 +65,17 @@ class Blog extends Component {
       backDrop = <BackDrop clickHandler={this.backDropClickHandler}/>;
     }
 
-    let content = <BlogFeed search={this.props.location.search}/>
+    let order = this.state.order[this.state.orderInd];
+    if (this.state.orderOld != order) {
+      let newKey = (this.state.feedKey + 1) % 2;
+      this.setState( {feedKey: newKey, orderOld: order } );
+    }
+
+    let content = <BlogFeed
+      search={this.props.location.search}
+      order={order}
+      key={this.state.feedKey}
+      />
     if (this.props.content === "err404") {
       content = <Err404 />
     } else if ( this.props.content === "post") {
@@ -62,7 +85,10 @@ class Blog extends Component {
     return (
       <div className={classes.main}>
         <Navbar panelClickHandler={this.sidePanelClickHandler}/>
-        <SidePanel visible={this.state.sidePanelOpen}/>
+        <SidePanel
+          visible={this.state.sidePanelOpen}
+          order={order}
+          orderClickHandler={this.orderClickHandler}/>
         {backDrop}
         <div className={classes.spacer}></div>
         {content}

@@ -96,6 +96,7 @@ class BlogFeed extends Component {
           "skip": this.state.skip,
           "limit": this.state.limit,
           "search": this.state.search,
+          "order": this.props.order,
         }
         const options = {
           method: "POST",

@@ -34,9 +34,18 @@ router.route('/total').get( async (req, res) => {
 router.route('/').post( async (req, res) => {
   const s = parseInt(req.body.skip);
   const l = parseInt(req.body.limit);
+  const order = req.body.order;
+
+  let sortBy;
+  if (order === 'new') {
+    sortBy = {date: -1}
+  } else if (order === 'old') {
+    sortBy = {date: 1}
+  }
+
   try {
     checkAuth(req.header('Authorization'));
-    let posts = await Post.find().sort({date: -1}).skip(s).limit(l);
+    let posts = await Post.find().sort(sortBy).skip(s).limit(l);
     return res.json(posts)
   } catch(err) {
     return res.status(400).json('Error: ' + err);
@@ -47,6 +56,15 @@ router.route('/').post( async (req, res) => {
 router.route('/search/').post( async (req, res) => {
   const s = parseInt(req.body.skip);
   const l = parseInt(req.body.limit);
+  const order = req.body.order;
+
+  let sortBy;
+  if (order === 'new') {
+    sortBy = {date: -1}
+  } else if (order === 'old') {
+    sortBy = {date: 1}
+  }
+
   try {
     checkAuth(req.header('Authorization'));
     let posts = await Post.find(
@@ -57,7 +75,7 @@ router.route('/search/').post( async (req, res) => {
         ]
       }
     ).sort(
-      {date: -1}
+      sortBy
     ).skip(s).limit(l);
     return res.json(posts)
   } catch(err) {
