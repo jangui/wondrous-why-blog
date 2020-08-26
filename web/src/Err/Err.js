@@ -21,16 +21,16 @@ const styles = theme => ({
   },
 });
 
-class Err404 extends Component {
+class Err extends Component {
   render() {
     const { classes } = this.props;
 
     return (
       <div className={classes.main}>
-        <Link className={classes.err} to='/'>404 Page Not Found</Link>
+        <Link className={classes.err} to='/'>{this.props.errMsg}</Link>
       </div>
     );
   }
 }
 
-export default withStyles(styles)(Err404);
+export default withStyles(styles)(Err);

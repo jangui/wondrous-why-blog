@@ -1,1 +1,2 @@
-export { default as Err404 } from './Err404'
+import Err from './Err';
+export default Err;

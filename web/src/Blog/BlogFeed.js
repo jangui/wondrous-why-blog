@@ -4,6 +4,7 @@ import BlogPostPreview from './BlogPostPreview';
 import FailedSearch from './FailedSearch';
 import debounce from "lodash.debounce";
 import queryString from 'query-string';
+import Err from '../Err';
 
 const url = 'https://api.' + process.env.REACT_APP_DOMAIN + '/';
 
@@ -140,18 +141,24 @@ class BlogFeed extends Component {
         <FailedSearch />
       );
     }
+    let content;
+    content = this.state.posts.map( (obj, index) => {
+      const date = new Date(obj.date);
+      const dateTimeFormat = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long', day: 'numeric' })
+      return <BlogPostPreview
+        title={obj.title}
+        date={dateTimeFormat.format(date)}
+        filepath={obj.filepath}
+        key={index}
+      />
+    })
+    if (this.state.error) {
+      content = <Err errMsg="500 Internal Server Error" />
+    }
+
     return (
       <div className={classes.feed}>
-        {this.state.posts.map( (obj, index) => {
-          const date = new Date(obj.date);
-          const dateTimeFormat = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long', day: 'numeric' })
-          return <BlogPostPreview
-            title={obj.title}
-            date={dateTimeFormat.format(date)}
-            filepath={obj.filepath}
-            key={index}
-          />
-        })}
+      {content}
       </div>
     );
   }

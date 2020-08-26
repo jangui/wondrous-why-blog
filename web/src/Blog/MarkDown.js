@@ -1,7 +1,7 @@
 import { withStyles } from '@material-ui/core';
 import React, { Component } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Err404 } from '../Err';
+import Err from '../Err';
 
 const styles = theme => ({
   markdown: {
@@ -109,7 +109,10 @@ class MarkDown extends Component {
     // load 404 if post not found
     let content = <ReactMarkdown source={this.state.markdown} />
     if (this.state.err === true) {
-      content = <> <div className={classes.spacer}></div><Err404 /> </>
+      content = <>
+        <div className={classes.spacer}></div><Err errMsg="404 Page Not Found"/>
+      </>
+
     }
 
     return (
