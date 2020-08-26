@@ -81,7 +81,6 @@ class BlogFeed extends Component {
       this.setState({ totalPosts: count });
     } catch (err) {
       console.log(err);
-      //TODO interal server error render flag
     }
 
     // load posts

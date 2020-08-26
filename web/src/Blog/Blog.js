@@ -28,14 +28,11 @@ class Blog extends Component {
       sidePanelOpen: false,
       order: ['new', 'old'],
       orderInd: 0,
-      orderOld: null,
       feedKey: 0,
     };
   }
 
   componentDidMount() {
-    let order = this.state.order[this.state.orderInd];
-    this.setState( {orderOld: order} );
     window.scrollTo(0, 0);
   }
 
@@ -56,6 +53,12 @@ class Blog extends Component {
     this.setState({sidePanelOpen: false});
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.orderInd  !== prevState.orderInd) {
+      let newKey = (this.state.feedKey + 1) % 2;
+      this.setState( {feedKey: newKey} );
+    }
+  }
 
   render() {
     const { classes } = this.props;
@@ -66,20 +69,18 @@ class Blog extends Component {
     }
 
     let order = this.state.order[this.state.orderInd];
-    if (this.state.orderOld != order) {
-      let newKey = (this.state.feedKey + 1) % 2;
-      this.setState( {feedKey: newKey, orderOld: order } );
-    }
 
-    let content = <BlogFeed
-      search={this.props.location.search}
-      order={order}
-      key={this.state.feedKey}
-      />
+    let content;
     if (this.props.content === "err404") {
       content = <Err404 />
     } else if ( this.props.content === "post") {
       content = <BlogPost location={this.props.location}/>
+    } else if ( this.props.content === "feed") {
+      content = <BlogFeed
+      search={this.props.location.search}
+      order={order}
+      key={this.state.feedKey}
+      />
     }
 
     return (
