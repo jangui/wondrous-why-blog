@@ -1,11 +1,9 @@
 import { withStyles } from '@material-ui/core';
 import React, { Component } from 'react';
-import Navbar from '../Navbar';
-import { SidePanel } from '../SidePanel';
-import BackDrop from '../SidePanel/BackDrop';
-import BlogFeed from './BlogFeed';
-import BlogPost from './BlogPost';
-import { Err404 } from '../Err';
+import Navbar from './Navbar';
+import { SidePanel, BackDrop } from './SidePanel';
+import { BlogFeed, BlogPost } from './Blog';
+import { Err404 } from './Err';
 
 const styles = theme => ({
   main: {
@@ -20,7 +18,7 @@ const styles = theme => ({
 
 });
 
-class Blog extends Component {
+class Portal extends Component {
   constructor(props) {
     super(props);
 
@@ -98,4 +96,4 @@ class Blog extends Component {
   }
 }
 
-export default withStyles(styles)(Blog);
+export default withStyles(styles)(Portal);

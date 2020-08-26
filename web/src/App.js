@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import Blog from './Blog';
+import Portal from './Portal';
 
 class App extends Component {
   render () {
@@ -8,22 +8,22 @@ class App extends Component {
       <Router>
         <Switch>
           <Route exact path="/" component={ (props) => (
-            <Blog timestamp={new Date().toString()} content="feed" {...props}/>
+            <Portal timestamp={new Date().toString()} content="feed" {...props}/>
           )}/>
 
           <Route path="/post/:title" component={ (props) => (
-            <Blog content="post" {...props}/>
+            <Portal content="post" {...props}/>
           )}/>
 
           <Route path="/search/" component={ (props) => (
-            <Blog content="feed" {...props} />
+            <Portal content="feed" {...props} />
           )}/>
 
           <Route path="/*" component={ (props) => (
-            <Blog content="err404" {...props} />
+            <Portal content="err404" {...props} />
           )}/>
           <Route path='/404' component={ (props) => (
-            <Blog content="err404" {...props} />
+            <Portal content="err404" {...props} />
           )}/>
           <Redirect from='*' to='/404' />
         </Switch>
