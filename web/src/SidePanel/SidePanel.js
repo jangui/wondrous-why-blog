@@ -17,19 +17,23 @@ const styles = theme => ({
     'transition': 'transform 0.3s ease-out',
     '& ul': {
       'list-style': 'none',
+      'height': '100%',
+      'width': '100%',
       'display': 'flex',
+      'padding': '0px 0px',
       'flex-direction': 'column',
-      'justify-content': 'center',
     },
     '& li': {
-      'margin': '0px 0px',
+      'margin': '15px 0px',
+      'text-align': 'center',
 
     },
     '& a': {
       'color': 'purple',
       'font-family': '"Sanchez"',
-      'font-size': '16px',
+      'font-size': '32px',
       'text-decoration': 'none',
+      'transition': '0.3s',
       '&:hover': {
         'color': 'pink',
       },
@@ -41,14 +45,20 @@ const styles = theme => ({
   orderButton: {
     'background-color': 'transparent',
     'font-family': '"Sanchez"',
-    'font-size': '16px',
+    'font-size': '32px',
     'border': 'none',
     'text-decoration': 'none',
     'color': 'purple',
     'padding': '0px 0px',
+    'transition': '0.3s',
     '&:hover': {
       'color': 'pink',
     },
+  },
+  divider: {
+    'color': '#6f6f6f',
+    'font-size': '10px',
+    'font-family': '"Sanchez"',
   },
 });
 
@@ -66,6 +76,7 @@ class SidePanel extends Component {
       <nav className={style}>
         <ul>
           <li><Link to="/about">About</Link></li>
+          <li className={classes.divider}> _______ </li>
           <li>
             <button
               className={classes.orderButton}

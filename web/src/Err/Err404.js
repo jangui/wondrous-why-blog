@@ -13,6 +13,7 @@ const styles = theme => ({
     'color': 'pink',
     'font-size': '36px',
     'text-decoration': 'none',
+    'transition': '0.3s',
     '&:hover': {
       'color': 'purple',
       'cursor': 'pointer',

@@ -14,6 +14,7 @@ const styles = theme => ({
     '& a': {
       'color': 'pink',
       'text-decoration': 'none',
+      'transition': '0.3s',
     },
     '& a:hover': {
       'color': 'purple',

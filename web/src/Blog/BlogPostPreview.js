@@ -14,6 +14,7 @@ const styles = theme => ({
     'fontSize': '34px',
     'text-align': 'center',
     'color': '#ffffff',
+    'transition': '0.3s',
     '&:hover': {
       'color': 'purple',
     },
