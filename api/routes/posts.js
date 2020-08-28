@@ -11,7 +11,6 @@ function checkAuth(token) {
 // get all posts
 router.route('/').get( async (req, res) => {
   try {
-    checkAuth(req.header('Authorization'));
     let posts = await Post.find();
     return res.json(posts)
   } catch(err) {
@@ -22,7 +21,6 @@ router.route('/').get( async (req, res) => {
 // get total posts count
 router.route('/total').get( async (req, res) => {
   try {
-    checkAuth(req.header('Authorization'));
     let count = await Post.countDocuments();
     return res.json(count)
   } catch(err) {
@@ -44,7 +42,6 @@ router.route('/').post( async (req, res) => {
   }
 
   try {
-    checkAuth(req.header('Authorization'));
     let posts = await Post.find().sort(sortBy).skip(s).limit(l);
     return res.json(posts)
   } catch(err) {
@@ -66,7 +63,6 @@ router.route('/search/').post( async (req, res) => {
   }
 
   try {
-    checkAuth(req.header('Authorization'));
     let posts = await Post.find(
       {
         $or:[
@@ -86,7 +82,6 @@ router.route('/search/').post( async (req, res) => {
 // get total posts count based off search
 router.route('/count').post( async (req, res) => {
   try {
-    checkAuth(req.header('Authorization'));
     let count = await Post.find(
       {title: {"$regex": req.body.search, "$options": "i"}}
     ).countDocuments();
@@ -117,7 +112,6 @@ router.route('/add').post( async (req, res) => {
 // find post by id
 router.route('/:id').get( async (req, res) => {
   try {
-    checkAuth(req.header('Authorization'));
     let postDoc = await Post.findById(req.params.id);
     return res.json(postDoc)
   } catch(err) {

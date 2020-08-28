@@ -71,7 +71,6 @@ class BlogFeed extends Component {
       const options = {
         method: "POST",
         headers: {
-          'Authorization': process.env.REACT_APP_AUTH,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(payload),
@@ -101,7 +100,6 @@ class BlogFeed extends Component {
         const options = {
           method: "POST",
           headers: {
-            'Authorization': process.env.REACT_APP_AUTH,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(payload),
