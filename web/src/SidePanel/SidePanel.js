@@ -71,19 +71,41 @@ class SidePanel extends Component {
     if (this.props.visible) {
       style = `${classes.sidePanel} ${classes.extend}`;
     }
+    let orderBtn;
+    if (this.props.showOrderBtn === true) {
+      orderBtn =
+          <>
+            <li className={classes.divider}> _______ </li>
+            <li>
+              <button
+                className={classes.orderButton}
+                onClick={this.props.orderClickHandler}>
+              Order: {this.props.order}
+              </button>
+            </li>
+          </>
+    }
+    let filterBtn;
+    if (this.props.showOrderBtn === true) {
+      filterBtn =
+          <>
+            <li className={classes.divider}> _______ </li>
+            <li>
+              <button
+                className={classes.orderButton}
+                onClick={this.props.filterClickHandler}>
+              Filter: {this.props.filter}
+              </button>
+            </li>
+          </>
+    }
 
     return (
       <nav className={style}>
         <ul>
           <li><Link to="/about">About</Link></li>
-          <li className={classes.divider}> _______ </li>
-          <li>
-            <button
-              className={classes.orderButton}
-              onClick={this.props.orderClickHandler}>
-            Order: {this.props.order}
-            </button>
-          </li>
+          {orderBtn}
+          {filterBtn}
         </ul>
       </nav>
     );

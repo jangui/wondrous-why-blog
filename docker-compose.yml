@@ -57,7 +57,6 @@ services:
       - PORT=9000
       - CHOKIDAR_USEPOLLING=true
       - CI=true
-      - "REACT_APP_AUTH=${AUTH}"
       - "REACT_APP_DOMAIN=${DOMAIN}"
     labels:
         # enable traefik auto discovery
