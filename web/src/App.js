@@ -11,6 +11,10 @@ class App extends Component {
             <Portal timestamp={new Date().toString()} content="feed" {...props}/>
           )}/>
 
+          <Route path="/about/" component={ (props) => (
+            <Portal content="about" {...props} />
+          )}/>
+
           <Route path="/post/:title" component={ (props) => (
             <Portal content="post" {...props}/>
           )}/>

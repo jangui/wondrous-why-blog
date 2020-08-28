@@ -4,6 +4,7 @@ import Navbar from './Navbar';
 import { SidePanel, BackDrop } from './SidePanel';
 import { BlogFeed, BlogPost } from './Blog';
 import Err from './Err';
+import About from './About';
 
 const styles = theme => ({
   main: {
@@ -71,6 +72,8 @@ class Portal extends Component {
     let content;
     if (this.props.content === "err404") {
       content = <Err errMsg="404 Page Not Found" />
+    } else if ( this.props.content === "about") {
+      content = <About />
     } else if ( this.props.content === "post") {
       content = <BlogPost location={this.props.location}/>
     } else if ( this.props.content === "feed") {

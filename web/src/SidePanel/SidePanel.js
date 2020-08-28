@@ -29,13 +29,13 @@ const styles = theme => ({
 
     },
     '& a': {
-      'color': 'purple',
+      'color': 'pink',
       'font-family': '"Sanchez"',
       'font-size': '32px',
       'text-decoration': 'none',
       'transition': '0.3s',
       '&:hover': {
-        'color': 'pink',
+        'color': 'purple',
       },
     },
   },
@@ -48,11 +48,11 @@ const styles = theme => ({
     'font-size': '32px',
     'border': 'none',
     'text-decoration': 'none',
-    'color': 'purple',
+    'color': 'pink',
     'padding': '0px 0px',
     'transition': '0.3s',
     '&:hover': {
-      'color': 'pink',
+      'color': 'purple',
     },
   },
   divider: {
