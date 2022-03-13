@@ -1,156 +1,43 @@
-const router = require('express').Router();
-let Post = require('../models/post.model');
+import express from 'express';
 
-// check auth func
-function checkAuth(token) {
-  if (!(token === process.env.AUTH)) {
-    throw "unauthorized";
-  }
-}
+import {
+    createPost,
+    editPost,
+    getPost,
+    getPosts,
+    deletePost,
+    savePost,
+    unsavePost,
+    getSavedPosts,
+} from '../controllers/postController.js';
 
-// get all posts
-router.route('/').get( async (req, res) => {
-  try {
-    let posts = await Post.find();
-    return res.json(posts)
-  } catch(err) {
-    return res.status(400).json('Error: ' + err);
-  }
-});
+import { authUser, authAdmin } from '../middlewares/auth.js');
 
-// get total posts count
-router.route('/total').get( async (req, res) => {
-  try {
-    let count = await Post.countDocuments();
-    return res.json(count)
-  } catch(err) {
-    return res.status(400).json('Error: ' + err);
-  }
-});
+router = express.Router();
 
-// get some post
-router.route('/').post( async (req, res) => {
-  const s = parseInt(req.body.skip);
-  const l = parseInt(req.body.limit);
-  const order = req.body.order;
+// create post
+router.route('/create').post(authAdmin, createPost);
 
-  let sortBy;
-  if (order === 'new') {
-    sortBy = {date: -1}
-  } else if (order === 'old') {
-    sortBy = {date: 1}
-  }
+// edit post
+router.route('/edit').post(authAdmin, editPost);
 
-  try {
-    let posts = await Post.find().sort(sortBy).skip(s).limit(l);
-    return res.json(posts)
-  } catch(err) {
-    return res.status(400).json('Error: ' + err);
-  }
-});
+// get a post
+router.route('/:postName').get(getPost)
 
-// search posts based on title
-router.route('/search/').post( async (req, res) => {
-  const s = parseInt(req.body.skip);
-  const l = parseInt(req.body.limit);
-  const order = req.body.order;
-  const search = req.body.search;
-  const postType = req.body.postType;
+// get posts
+// TODO add search and filter possibilities
+router.route('/').post(getPosts);
 
-  let sortBy;
-  if (order === 'new') {
-    sortBy = {date: -1}
-  } else if (order === 'old') {
-    sortBy = {date: 1}
-  }
+// delete post
+outer.route('/:id').delete(authAdmin, deletePost);
 
-  try {
-    let posts = await Post.find(
-      {
-        $or:[
-          {title: {"$regex": search, "$options": "i"}},
-          {tags: {"$regex": search, "$options": "i"}},
-        ],
-        type: postType,
-      }
-    ).sort(
-      sortBy
-    ).skip(s).limit(l);
-    return res.json(posts)
-  } catch(err) {
-    return res.status(400).json('Error: ' + err);
-  }
-});
+// save post
+router.route('/save').post(authUser, savePost);
 
-// get total posts count based off search
-router.route('/count').post( async (req, res) => {
-  try {
-    let count = await Post.find(
-      {title: {"$regex": req.body.search, "$options": "i"}}
-    ).countDocuments();
-    return res.json(count)
-  } catch(err) {
-    return res.status(400).json('Error: ' + err);
-  }
-});
+// unsave post
+router.route('/save').post(authUser, unsavePost);
 
-// add post
-router.route('/add').post( async (req, res) => {
-  const title = req.body.title;
-  const filepath = req.body.filepath;
-  const date = Date.parse(req.body.date);
-  const tags = req.body.tags;
-  const type = req.body.type;
+// get saved posts
+router.route('/saved').post(authUser, getSavedPosts);
 
-  const newPost = new Post({title, filepath, type, date, tags});
-
-  try {
-    checkAuth(req.header('Authorization'));
-    let response = await newPost.save();
-    return res.json(`Post '${title}' added!`);
-  } catch(err) {
-    return res.status(400).json('Error: ' + err);
-  }
-});
-
-// find post by id
-router.route('/:id').get( async (req, res) => {
-  try {
-    let postDoc = await Post.findById(req.params.id);
-    return res.json(postDoc)
-  } catch(err) {
-    return res.status(400).json('Error: ' + err);
-  }
-});
-
-// delete post by id
-router.route('/:id').delete( async (req, res) => {
-  try {
-    checkAuth(req.header('Authorization'));
-    await Post.findByIdAndDelete(req.params.id);
-    return res.json("post deleted")
-  } catch(err) {
-    return res.status(400).json('Error: ' + err);
-  }
-});
-
-// update post
-router.route('/update/:id').post( async (req, res) => {
-  try {
-    checkAuth(req.header('Authorization'));
-    let postDoc = await Post.findById(req.params.id);
-    postDoc.title = req.body.title;
-    postDoc.filepath = req.body.filepath;
-
-    try {
-      let response = await postDoc.save();
-      return res.json(`Post '${postDoc.title}' updated!`);
-    } catch(err) {
-      return res.status(400).json('Error: ' + err);
-    }
-  } catch(err) {
-    return res.status(400).json('Error: ' + err);
-  }
-});
-
-module.exports = router;
+export default router;
